@@ -54,16 +54,12 @@ public class ContetService implements IContentService {
         List<ContentDTO> ContentsResponse = contents.stream().
                 map(content -> this.modelMapperService.forkresponse().
                         map(content, ContentDTO.class)).collect(Collectors.toList());
-
-
         return ContentsResponse;
 
     }
 
     @Override
     public void add(String name) {
-        name = name.replaceAll("[\r\n]", "");
-
         Content content = new Content();
         content.setTitle(name);
         this.contentRepository.save(content);
@@ -161,8 +157,8 @@ public class ContetService implements IContentService {
         Query query = entityManager.createQuery("UPDATE Content c SET c.metadata.id = :id WHERE c.title = :title");
         query.setParameter("id", id);
         query.setParameter("title", title);
-        int updatedCount = query.executeUpdate();
-        System.out.println("Updated " + updatedCount + " rows.");
+        query.executeUpdate();
+
     }
 }
 
