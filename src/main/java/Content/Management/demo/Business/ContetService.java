@@ -8,6 +8,7 @@ import Content.Management.demo.Entities.Content;
 import Content.Management.demo.Entities.Metadata;
 import Content.Management.demo.Mapper.ModelMapperService;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.json.JSONObject;
@@ -157,14 +158,11 @@ public class ContetService implements IContentService {
 
     @Override
     public void addReferance(String title, long id) {
-        List<Content> contentList = contentRepository.findAllByTitle(title);
-        for (Content content : contentList) {
-            Metadata metadata = metadataRepository.findById((int) id).orElse(null);
-            if (metadata != null) {
-                content.getMetadata().setId(id);
-                contentRepository.save(content);
-            }
-        }
+        Query query = entityManager.createQuery("UPDATE Content c SET c.metadata.id = :id WHERE c.title = :title");
+        query.setParameter("id", id);
+        query.setParameter("title", title);
+        int updatedCount = query.executeUpdate();
+        System.out.println("Updated " + updatedCount + " rows.");
     }
 }
 
