@@ -9,7 +9,7 @@ public interface IContentService {
 
     List<ContentDTO> getAll();
     void add(String name);
-    void update(ContentDTO contentDTO);
+    void update(ContentDTO contentDTO,int id) throws Exception;
     void delete(int id);
     String getMovieInfoById(String movieId);
     List<MetadataDTO> getMediaInfo();

@@ -1,6 +1,8 @@
 package Content.Management.demo.Business.DTO;
 
 
+import Content.Management.demo.Entities.Cast;
+import Content.Management.demo.Entities.Metadata;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,12 +14,10 @@ import java.util.List;
 @NoArgsConstructor
 public class ContentDTO {
 
+private int id;
     private String title;
     private String metID;
-    private MetadataDTO metadata;
-    private List<CastDTO> actors;
-    private CastDTO director;
-
-
+    private Metadata metadata;
+    private List<Cast> actors;
 
 }

@@ -9,10 +9,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CastDTO {
-    private int id;
+
     private String name;
     private String poster;
-    private String director;
-  private int getContent_id;
+
+    private int getContent_id;
 
 }

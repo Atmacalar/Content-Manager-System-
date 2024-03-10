@@ -13,6 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/content")
 @AllArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200/")
 public class ContentController {
 
    private IContentService contentService;
@@ -32,9 +33,9 @@ public class ContentController {
    }
 
    @PutMapping("/put")
-   public void update(@RequestBody ContentDTO contentDTO ) {
+   public void update(@RequestBody ContentDTO contentDTO, int id ) throws Exception {
 
-      this.contentService.update(contentDTO);
+      this.contentService.update(contentDTO,id);
    }
 
    @DeleteMapping("/{id}")
@@ -46,6 +47,7 @@ public class ContentController {
    public String getMovieDetails(@PathVariable String imdbId) {
      return contentService.getMovieInfoById(imdbId);
 }
+
 
    @GetMapping("/getAllImdb")
    public List<MetadataDTO> getAllMediaInfo() {

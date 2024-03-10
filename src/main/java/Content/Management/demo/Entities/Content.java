@@ -28,7 +28,7 @@ public class Content {
     private String metID;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "metadata_id", referencedColumnName = "id")
+    @JoinColumn(name = "metadata")
     private Metadata metadata;
 
 

@@ -42,9 +42,14 @@ public class Metadata {
     @JsonProperty("Country")
     private String country;
 
+    @Column(name="Genre")
+    @JsonProperty("Genre")
+    private String Genre;
+
     @Column(name="Director")
     @JsonProperty("Director")
     private String Director;
+
 
 
 }

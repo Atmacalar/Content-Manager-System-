@@ -8,7 +8,6 @@ import Content.Management.demo.Entities.Content;
 import Content.Management.demo.Entities.Metadata;
 import Content.Management.demo.Mapper.ModelMapperService;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.Query;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.json.JSONObject;
@@ -21,6 +20,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -63,13 +63,24 @@ public class ContetService implements IContentService {
         Content content = new Content();
         content.setTitle(name);
         this.contentRepository.save(content);
-
+        getMediaInfo();
     }
 
     @Override
-    public void update(ContentDTO contentDTO) {
+    public void update(ContentDTO contentDTO, int id) throws Exception {
+        Optional<Content> optionalContent =contentRepository.findById(id);
+
+        if (optionalContent.isPresent()) {
+            Content content = optionalContent.get();
+            content.setTitle(contentDTO.getTitle());
+            content.setMetadata(contentDTO.getMetadata());
+           content.setActors(contentDTO.getActors());
+           content.setMetID(content.getMetID());
 
 
+        } else {
+    throw new Exception("Kayıt Bulunamadı");
+        }
     }
 
     @Override
@@ -127,7 +138,10 @@ public class ContetService implements IContentService {
                         mediaDto.getPlot(),
                         mediaDto.getCountry(),
                         mediaDto.getLanguage(),
-                        mediaDto.getDirector()
+                        mediaDto.getDirector(),
+                        mediaDto.getGenre()
+
+
                 ));
 
                 if (!titleMeta.contains(mediaDto.getTitle())) {
@@ -139,6 +153,7 @@ public class ContetService implements IContentService {
                     metadata.setCountry(mediaDto.getCountry());
                     metadata.setLanguage(mediaDto.getLanguage());
                     metadata.setDirector(mediaDto.getDirector());
+                   metadata.setGenre(mediaDto.getGenre());
 
                     Metadata savedData = metadataRepository.save(metadata);
                     addReferance(savedData.getTitle(), savedData.getId());
@@ -154,10 +169,17 @@ public class ContetService implements IContentService {
 
     @Override
     public void addReferance(String title, long id) {
-        Query query = entityManager.createQuery("UPDATE Content c SET c.metadata.id = :id WHERE c.title = :title");
-        query.setParameter("id", id);
-        query.setParameter("title", title);
-        query.executeUpdate();
+
+        List<Content> contents=contentRepository.findAll();
+
+        for(Content c : contents){
+           if(c.getTitle().equals(title)){
+               c.setMetadata(metadataRepository.findById(Math.toIntExact(id)).get());
+               contentRepository.save(c);
+           }
+
+        }
+
 
     }
 }

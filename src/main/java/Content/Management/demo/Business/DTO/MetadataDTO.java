@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 public class MetadataDTO  {
 
 
+
     @JsonProperty("Title")
     private String Title;
 
@@ -30,8 +31,13 @@ public class MetadataDTO  {
     @JsonProperty("Country")
     private String country;
 
+    @JsonProperty("Genre")
+    private String Genre;
+
     @JsonProperty("Director")
     private String Director;
+
+
 
 
 

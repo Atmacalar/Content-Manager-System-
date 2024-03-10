@@ -13,6 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/cast")
 @AllArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200/")
 public class CastController {
 
     private ICastService castService;
