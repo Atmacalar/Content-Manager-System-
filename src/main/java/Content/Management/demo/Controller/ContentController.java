@@ -4,11 +4,13 @@ package Content.Management.demo.Controller;
 import Content.Management.demo.Business.DTO.ContentDTO;
 import Content.Management.demo.Business.DTO.MetadataDTO;
 import Content.Management.demo.Business.IContentService;
+import Content.Management.demo.Entities.Content;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/content")
@@ -32,8 +34,8 @@ public class ContentController {
 
    }
 
-   @PutMapping("/put")
-   public void update(@RequestBody ContentDTO contentDTO, int id ) throws Exception {
+   @PutMapping("/put/{id}")
+   public void update( @PathVariable("id") int id, @RequestBody ContentDTO contentDTO) throws Exception {
 
       this.contentService.update(contentDTO,id);
    }
@@ -43,7 +45,7 @@ public class ContentController {
       this.contentService.delete(id);
   }
 
-   @GetMapping("/{imdbId}")
+   @GetMapping("/omdb/{imdbId}")
    public String getMovieDetails(@PathVariable String imdbId) {
      return contentService.getMovieInfoById(imdbId);
 }
@@ -55,4 +57,9 @@ public class ContentController {
 }
 
 
+   @GetMapping("/{id}")
+   public Optional<Content> getContentById(@PathVariable int id){
+     return contentService.getContentById(id);
+   }
 }
+

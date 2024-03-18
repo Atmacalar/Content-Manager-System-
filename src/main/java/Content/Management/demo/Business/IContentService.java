@@ -2,8 +2,10 @@ package Content.Management.demo.Business;
 
 import Content.Management.demo.Business.DTO.ContentDTO;
 import Content.Management.demo.Business.DTO.MetadataDTO;
+import Content.Management.demo.Entities.Content;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface IContentService {
 
@@ -13,9 +15,9 @@ public interface IContentService {
     void delete(int id);
     String getMovieInfoById(String movieId);
     List<MetadataDTO> getMediaInfo();
+    void addReferance(String title, long id);
 
-    public void addReferance(String title, long id);
-
+    Optional<Content> getContentById(int id);
 
 
 }

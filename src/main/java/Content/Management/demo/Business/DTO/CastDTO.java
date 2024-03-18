@@ -12,7 +12,6 @@ public class CastDTO {
 
     private String name;
     private String poster;
-
-    private int getContent_id;
+   private int getContent_id;
 
 }

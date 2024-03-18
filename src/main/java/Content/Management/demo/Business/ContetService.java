@@ -68,17 +68,15 @@ public class ContetService implements IContentService {
 
     @Override
     public void update(ContentDTO contentDTO, int id) throws Exception {
-        Optional<Content> optionalContent =contentRepository.findById(id);
+    Optional<Content> optionalContent =contentRepository.findById(id);
 
         if (optionalContent.isPresent()) {
             Content content = optionalContent.get();
             content.setTitle(contentDTO.getTitle());
-            content.setMetadata(contentDTO.getMetadata());
-           content.setActors(contentDTO.getActors());
-           content.setMetID(content.getMetID());
+          content.setMetadata(contentDTO.getMetadata());
+          contentRepository.save(content);
 
-
-        } else {
+ } else {
     throw new Exception("Kayıt Bulunamadı");
         }
     }
@@ -142,6 +140,7 @@ public class ContetService implements IContentService {
                         mediaDto.getGenre()
 
 
+
                 ));
 
                 if (!titleMeta.contains(mediaDto.getTitle())) {
@@ -153,7 +152,8 @@ public class ContetService implements IContentService {
                     metadata.setCountry(mediaDto.getCountry());
                     metadata.setLanguage(mediaDto.getLanguage());
                     metadata.setDirector(mediaDto.getDirector());
-                   metadata.setGenre(mediaDto.getGenre());
+                    metadata.setGenre(mediaDto.getGenre());
+
 
                     Metadata savedData = metadataRepository.save(metadata);
                     addReferance(savedData.getTitle(), savedData.getId());
@@ -181,6 +181,12 @@ public class ContetService implements IContentService {
         }
 
 
+    }
+
+    @Override
+    public Optional<Content> getContentById(int id) {
+        Optional<Content> c = contentRepository.findById(id);
+        return c;
     }
 }
 
