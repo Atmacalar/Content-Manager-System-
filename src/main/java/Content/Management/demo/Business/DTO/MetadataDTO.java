@@ -37,7 +37,8 @@ public class MetadataDTO  {
     @JsonProperty("Director")
     private String Director;
 
-
+    @JsonProperty("Actors")
+    private String Actors;
 
 
 

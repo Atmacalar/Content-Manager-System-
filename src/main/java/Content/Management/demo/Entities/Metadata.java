@@ -50,6 +50,9 @@ public class Metadata {
     @JsonProperty("Director")
     private String Director;
 
+    @Column(name="Actors")
+    @JsonProperty("Actors")
+    private String Actors;
 
 
 
