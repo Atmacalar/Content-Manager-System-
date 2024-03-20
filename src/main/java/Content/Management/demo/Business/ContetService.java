@@ -179,13 +179,10 @@ public class ContetService implements IContentService {
                         if(contentss!=null){
 
                             cast.setContent_id(contentss);
-                            Cast savedData = castRepository.save(cast);
 
                         }
+                         Cast savedData = castRepository.save(cast);
 
-
-                        Cast savedData = castRepository.save(cast);
-                     addReferenceActor(savedData.getName(), (int) savedData.getId());
 
                     }
                 }
@@ -213,17 +210,7 @@ public class ContetService implements IContentService {
 
     }
 
-    @Override
-    public void addReferenceActor(String title, int id) {
-        List<Content> contents=contentRepository.findAll();
-        for(Content c : contents){
-            if(c.getTitle().equals(title)){
 
-            }
-
-        }
-
-    }
 
     @Override
     public Optional<Content> getContentById(int id) {
