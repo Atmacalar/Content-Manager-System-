@@ -161,11 +161,8 @@ public class ContetService implements IContentService {
                     metadata.setGenre(mediaDto.getGenre());
                     metadata.setActors(mediaDto.getActors());
 
-
                     Metadata savedData = metadataRepository.save(metadata);
                     addReferance(savedData.getTitle(), savedData.getId());
-
-
 
     }
                 String actorsString = mediaDto.getActors();
@@ -176,7 +173,20 @@ public class ContetService implements IContentService {
                     if (!titleActor.contains(actor)) {
                         Cast cast = new Cast();
                         cast.setName(actor);
+                        cast.setTitle(mediaDto.getTitle());
+
+                        Content contentss = contentRepository.findByTitle(mediaDto.getTitle());
+                        if(contentss!=null){
+
+                            cast.setContent_id(contentss);
+                            Cast savedData = castRepository.save(cast);
+
+                        }
+
+
                         Cast savedData = castRepository.save(cast);
+                     addReferenceActor(savedData.getName(), (int) savedData.getId());
+
                     }
                 }
 
@@ -200,6 +210,18 @@ public class ContetService implements IContentService {
 
         }
 
+
+    }
+
+    @Override
+    public void addReferenceActor(String title, int id) {
+        List<Content> contents=contentRepository.findAll();
+        for(Content c : contents){
+            if(c.getTitle().equals(title)){
+
+            }
+
+        }
 
     }
 

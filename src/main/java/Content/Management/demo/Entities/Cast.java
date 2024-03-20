@@ -27,6 +27,9 @@ public class Cast {
     @JsonBackReference
     private Content content_id;
 
+    @Column(name="Title")
+    private String Title;
+
 
 
 }

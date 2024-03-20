@@ -16,7 +16,7 @@ public interface IContentService {
     String getMovieInfoById(String movieId);
     List<MetadataDTO> getMediaInfo();
     void addReferance(String title, long id);
-
+void addReferenceActor(String title, int id);
     Optional<Content> getContentById(int id);
 
 
